@@ -1,0 +1,14 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  justify-items: center;
+}
+
+
+.app-container {
+  background-color: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+}

@@ -1,0 +1,23 @@
+/* Reset + Global styles */
+
+:root {
+  --bg-color: #fff;
+  --text-color: #222;
+}
+
+.dark {
+  --bg-color: #222;
+  --text-color: #eee;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f2f2f2;
+  color: #222;
+}

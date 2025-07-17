@@ -1,0 +1,202 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+}
+
+/* Add spacing above the search bar */
+.search-bar-container {
+  margin: 40px auto 20px;
+}
+
+/* Pills inside the search bar */
+.selected-types-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.selected-types-inline .type-pill {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.selected-types-inline .type-pill button {
+  background: none;
+  border: none;
+  margin-left: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  color: inherit;
+}
+
+
+
+.search-bar-container {
+ margin: 100px auto 20px auto;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 999px; /* Fully rounded */
+  padding: 10px 16px;
+  background-color: var(--bg-color);
+  transition: border 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--text-color);
+  border-radius: 999px; /* just in case */
+}
+
+.search-icon {
+  margin-right: 10px;
+  font-size: 1.3rem;
+  color: var(--text-color);
+}
+
+.filter-button {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--text-color);
+  margin-left: 10px;
+}
+
+.filters-popup {
+  margin-top: 10px;
+  background: var(--bg-color);
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.types-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.types-list button {
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid #999;
+  /* background: #eee; */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.toggles {
+  margin-top: 12px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.selected-types {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin: 2px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #555;
+}
+
+.pill button {
+  background: none;
+  border: none;
+  color: inherit;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+
+.type-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin: 2px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.type-pill button {
+  background: none;
+  border: none;
+  color: inherit;
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+/* New: Special filter pills */
+.type-shiny {
+  background: linear-gradient(135deg, #ffe66d, #f5f242);
+  color: #000;
+}
+
+.type-mega {
+  background: linear-gradient(135deg, #7e57c2, #9575cd);
+  color: #fff;
+}
+
+/* Type colors */
+.type-fire      { background: #f08030; color: #fff; }
+.type-water     { background: #6890f0; color: #fff; }
+.type-grass     { background: #78c850; color: #fff; }
+.type-electric  { background: #f8d030; color: #000; }
+.type-ice       { background: #98d8d8; color: #000; }
+.type-fighting  { background: #c03028; color: #fff; }
+.type-poison    { background: #a040a0; color: #fff; }
+.type-ground    { background: #e0c068; color: #000; }
+.type-flying    { background: #a890f0; color: #000; }
+.type-psychic   { background: #f85888; color: #fff; }
+.type-bug       { background: #a8b820; color: #000; }
+.type-rock      { background: #b8a038; color: #000; }
+.type-ghost     { background: #705898; color: #fff; }
+.type-dragon    { background: #7038f8; color: #fff; }
+.type-dark      { background: #705848; color: #fff; }
+.type-steel     { background: #b8b8d0; color: #000; }
+.type-fairy     { background: #ee99ac; color: #000; }
+.type-normal    { background: #a8a878; color: #000; }
+.type-mega {
+  background: linear-gradient(135deg, #333, #8a2be2);
+}
