@@ -1,6 +1,14 @@
+/* Light mode */
+.pokemon-card.light {
+  --card-bg: #ffffff;
+  --card-text: #000000;
+}
 
-
-
+/* Dark mode */
+.pokemon-card.dark {
+  --card-bg: #1e1e1e;
+  --card-text: #f0f0f0;
+}
 
 
 /* Pokemon type pill style */

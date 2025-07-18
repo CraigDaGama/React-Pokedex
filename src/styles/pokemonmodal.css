@@ -1,147 +1,121 @@
-.pokemon-modal .modal-overlay {
+.modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
-.pokemon-modal .close-button {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.pokemon-modal .modal-content {
+.modal-content {
+  width: 1000px;
+  height: 60vh;
+  background-color: white;
+  color: black;
+  border-radius: 12px;
   display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 1000px;
-  background: white;
-  border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
+  overflow: hidden;
+  border: 3px solid red;
 }
 
-.pokemon-modal .modal-left,
-.pokemon-modal .modal-right {
+.modal-left {
   flex: 1;
   padding: 1rem;
-  overflow-y: auto;
+  border-right: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px dashed green;
 }
 
-.pokemon-modal .modal-sprite {
+.modal-id {
+  font-weight: bold;
+}
+
+.modal-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.type-pills {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.type-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.modal-sprite {
   width: 150px;
   height: auto;
-  display: block;
-  margin: 0 auto;
+  margin: 1rem 0;
 }
 
-.pokemon-modal .pokemon-name {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.pokemon-modal .button-group button,
-.pokemon-modal .sub-button-group button {
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 6px;
-  background: #eee;
-  cursor: pointer;
-}
-
-.pokemon-modal .button-group .active,
-.pokemon-modal .sub-button-group .active {
-  background-color: #555;
-  color: white;
-}
-
-.pokemon-modal .evolution-line,
-.pokemon-modal .type-pills {
+.toggle-buttons {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.pokemon-modal .type-badge {
-  padding: 0.3rem 0.6rem;
-  border-radius: 12px;
-  text-transform: capitalize;
-  font-size: 0.85rem;
+.description {
+  font-style: italic;
+  text-align: center;
 }
 
-.pokemon-modal .info-box {
-  margin-top: 1rem;
-  background-color: #f9f9f9;
+.modal-right {
+  flex: 1;
   padding: 1rem;
-  border-radius: 0.75rem;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  overflow-y: auto;
+  border: 2px dashed blue;
 }
 
-.pokemon-modal .info-box p {
+.radar-chart-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border: 1px solid orange;
+}
+
+.info-cards p {
   margin: 0.4rem 0;
+  border: 1px solid gray;
+  padding: 0.3rem;
 }
 
-
-.button-group button img {
-  width: 24px;
-  height: 24px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
+.evolution-chain {
+  margin: 1rem 0;
+  border: 1px dashed purple;
 }
 
-.button-group button.active img {
-  filter: none;
+.evolution-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.icon-button {
-  width: 32px;
-  height: 32px;
-  margin: 0 5px;
+.evolution-item {
+  text-align: center;
   cursor: pointer;
-  border-radius: 50%;
-  border: 2px solid transparent; /* default border */
-  transition: border 0.2s ease, transform 0.2s ease;
-  padding: 2px;
-  background-color: white;
 }
 
-.icon-button:hover {
-  transform: scale(1.05);
+.evolution-item img {
+  width: 80px;
+  height: 80px;
 }
 
-.icon-button.active {
-  border: 2px solid #333; /* dark border to indicate toggle */
+.advantages {
+  margin-top: 1rem;
+  border: 1px dashed darkred;
 }
 
-.sub-button-group button {
-  margin: 4px;
-  padding: 2px 8px;
-  font-weight: bold;
-  border-radius: 6px;
-  background-color: #eee;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
+.type-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
-
-.sub-button-group button.active {
-  background-color: #333;
-  color: white;
-}
-
