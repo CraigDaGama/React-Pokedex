@@ -1,35 +1,147 @@
-.modal-overlay {
+.pokemon-modal .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.modal-content {
-  background-color: var(--background, #fff);
-  color: var(--text, #000);
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 400px;
-  width: 90%;
-  position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  text-align: center;
-}
-
-.close-button {
+.pokemon-modal .close-button {
   position: absolute;
   top: 8px;
   right: 12px;
-  font-size: 1.5rem;
   background: transparent;
   border: none;
-  color: inherit;
+  font-size: 1.5rem;
   cursor: pointer;
 }
+
+.pokemon-modal .modal-content {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  max-width: 1000px;
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.pokemon-modal .modal-left,
+.pokemon-modal .modal-right {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.pokemon-modal .modal-sprite {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.pokemon-modal .pokemon-name {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.pokemon-modal .button-group button,
+.pokemon-modal .sub-button-group button {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.pokemon-modal .button-group .active,
+.pokemon-modal .sub-button-group .active {
+  background-color: #555;
+  color: white;
+}
+
+.pokemon-modal .evolution-line,
+.pokemon-modal .type-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pokemon-modal .type-badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  text-transform: capitalize;
+  font-size: 0.85rem;
+}
+
+.pokemon-modal .info-box {
+  margin-top: 1rem;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.pokemon-modal .info-box p {
+  margin: 0.4rem 0;
+}
+
+
+.button-group button img {
+  width: 24px;
+  height: 24px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.button-group button.active img {
+  filter: none;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid transparent; /* default border */
+  transition: border 0.2s ease, transform 0.2s ease;
+  padding: 2px;
+  background-color: white;
+}
+
+.icon-button:hover {
+  transform: scale(1.05);
+}
+
+.icon-button.active {
+  border: 2px solid #333; /* dark border to indicate toggle */
+}
+
+.sub-button-group button {
+  margin: 4px;
+  padding: 2px 8px;
+  font-weight: bold;
+  border-radius: 6px;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sub-button-group button.active {
+  background-color: #333;
+  color: white;
+}
+

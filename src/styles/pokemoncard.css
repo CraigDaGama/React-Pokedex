@@ -1,9 +1,10 @@
 .pokemon-card {
   background-color: #fff;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 16px;
   width: 140px;
-  height: 200px;
+  height: 220px;
+  margin: 10px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
@@ -16,14 +17,16 @@
 
 .pokemon-id {
   font-weight: bold;
-  color: #777;
+  color: #4f4f4f;
   font-size: 0.9rem;
+  padding-top: 1rem;
 }
 
 .pokemon-image {
   width: 96px;
   height: 96px;
   object-fit: contain;
+  padding-top: 1rem;
   margin: 0 auto;
   display: block;
 }
@@ -39,15 +42,25 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: 8px;
 }
 
 .type-tag {
   font-size: 0.7rem;
-  padding: 2px 6px;
+  padding: 4px 6px;
   border-radius: 8px;
   color: white;
   text-transform: capitalize;
+}
+
+.type-badge {
+  padding: 3px 6px;
+  border-radius: 999px; /* pill shape */
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 .type-tag.grass { background-color: #78C850; }
