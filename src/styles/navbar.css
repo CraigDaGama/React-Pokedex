@@ -29,22 +29,19 @@
 }
 
 .github-icon {
+  width: 32px;
   height: 32px;
-  cursor: pointer;
+  transition: filter 0.3s ease;
 }
 
-.github-icon.dark-mode {
-  display: none;
+/* Apply coloring via filter (for non-inline SVG) */
+.github-icon.light {
+  filter: invert(0%);
 }
 
-body.dark .github-icon.dark-mode {
-  display: inline;
+.github-icon.dark {
+  filter: invert(100%);
 }
-
-body.dark .github-icon.light-mode {
-  display: none;
-}
-
 
 /* Toggle switch (Dark mode) */
 .switch {

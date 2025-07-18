@@ -1,12 +1,11 @@
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
-  padding: 2rem;
-  justify-items: center;
-  padding-left: 100px;
-  padding-right: 100px;
+  justify-content: left;
+  padding: 2rem 100px;
 }
+
 
 
 .app-container {

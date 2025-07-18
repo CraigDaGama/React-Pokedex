@@ -1,35 +1,32 @@
 import "./../styles/navbar.css";
-import { useState, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  // Apply dark mode to the body element
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const { darkMode, setDarkMode } = useTheme();
 
   return (
     <nav className="navbar">
+      {/* Logo */}
       <div className="logo-container">
         <img src="/logo/pokedex.png" alt="Pokedex Logo" className="logo" />
       </div>
 
+      {/* Right Icons: GitHub & Toggle */}
       <div className="right-icons">
         <a
-          href="https://github.com/your-username/your-pokedex-repo"
+          href="https://github.com/CraigDaGama/React-Pokedex.git"
           target="_blank"
           rel="noopener noreferrer"
           className="github-link"
         >
-          <img src="/logo/github-light.png" alt="GitHub Light" className="github-icon light-mode" />
-          <img src="/logo/github-dark.png" alt="GitHub Dark" className="github-icon dark-mode" />
+          <img
+            src="/logo/github.svg"
+            alt="GitHub"
+            className={`github-icon ${darkMode ? "dark" : "light"}`}
+          />
         </a>
 
+        {/* Dark Mode Toggle */}
         <label className="switch">
           <input
             type="checkbox"
@@ -39,7 +36,6 @@ function Navbar() {
           <span className="slider round"></span>
         </label>
       </div>
-
     </nav>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
-import CardGrid from "../components/CardGrid"; // ✅ Add this import
+import CardGrid from "../components/CardGrid";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +20,10 @@ function Home() {
         filters={filters}
         setFilters={setFilters}
       />
-      <CardGrid />
+      <CardGrid
+        searchTerm={searchTerm}
+        filters={filters}
+      />
     </>
   );
 }
