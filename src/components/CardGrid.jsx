@@ -1,29 +1,41 @@
-// src/components/CardGrid.jsx
-
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PokemonCard from "./PokemonCard";
-import PokemonModal from "./PokemonModal"; // placeholder for now
 import "../styles/cardgrid.css";
+import PokemonModal from "./PokemonModal";
 
 function CardGrid() {
-  const [pokemons, setPokemons] = useState([]);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [pokemonList, setPokemonList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   useEffect(() => {
-    const dummyData = [
-  { id: 1, name: "Bulbasaur", types: ["Grass", "Poison"], image: "../sprites/001.gif" },
-  { id: 2, name: "Ivysaur", types: ["Grass", "Poison"], image: "/images/2.gif" },
-  { id: 3, name: "Venusaur", types: ["Grass", "Poison"], image: "/images/3.gif" },
-  { id: 4, name: "Charmander", types: ["Fire"], image: "/images/4.gif" },
-  { id: 5, name: "Charmeleon", types: ["Fire"], image: "/images/5.gif" },
-  { id: 6, name: "Charizard", types: ["Fire", "Flying"], image: "/images/6.gif" },
-  { id: 7, name: "Squirtle", types: ["Water"], image: "/images/7.gif" },
-  { id: 8, name: "Wartortle", types: ["Water"], image: "/images/8.gif" },
-  { id: 9, name: "Blastoise", types: ["Water"], image: "/images/9.gif" },
-];
+    const fetchPokemons = async () => {
+      try {
+        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=9&offset=0");
+        const data = await res.json();
 
-    setPokemons(dummyData);
+        const details = await Promise.all(
+          data.results.map(async (p) => {
+            const res = await fetch(p.url);
+            return res.json();
+          })
+        );
+
+        const cleaned = details.map((p) => ({
+          id: p.id,
+          name: p.name,
+          types: p.types.map((t) => t.type.name),
+        }));
+
+        setPokemonList(cleaned);
+        setLoading(false);
+      } catch (err) {
+        console.error("Failed to fetch Pokémons:", err);
+      }
+    };
+
+    fetchPokemons();
   }, []);
 
   const openModal = (pokemon) => {
@@ -36,23 +48,18 @@ function CardGrid() {
     setSelectedPokemon(null);
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
-    <>
-      <div className="card-grid">
-        {pokemons.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            onClick={() => openModal(pokemon)}
-          />
-        ))}
-      </div>
-      <PokemonModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        pokemon={selectedPokemon}
-      />
-    </>
+    <div className="card-grid">
+      {pokemonList.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} onClick={() => openModal(pokemon)} />
+      ))}
+
+      {isModalOpen && selectedPokemon && (
+        <PokemonModal pokemon={selectedPokemon} onClose={closeModal} />
+      )}
+    </div>
   );
 }
 
