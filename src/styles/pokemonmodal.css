@@ -10,33 +10,36 @@
 
 .modal-content {
   width: 1000px;
-  height: 60vh;
+  height: 80vh;
   background-color: white;
   color: black;
   border-radius: 12px;
   display: flex;
   overflow: hidden;
-  border: 3px solid red;
+  border: 3px solid red; /* Outer debug border */
 }
 
+/* ---------- LEFT SIDE ---------- */
 .modal-left {
   flex: 1;
   padding: 1rem;
-  border-right: 2px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-right: 2px solid black;
   border: 2px dashed green;
-}
-
-.modal-id {
-  font-weight: bold;
 }
 
 .modal-header {
   display: flex;
   gap: 1rem;
   align-items: center;
+  margin-bottom: 0.5rem;
+  border: 1px solid blue;
+}
+
+.modal-id {
+  font-weight: bold;
 }
 
 .type-pills {
@@ -49,25 +52,71 @@
   border-radius: 12px;
   color: white;
   font-size: 0.9rem;
+  text-transform: capitalize;
 }
 
+/* ---------- SPRITE ---------- */
 .modal-sprite {
   width: 150px;
   height: auto;
   margin: 1rem 0;
+  border: 1px dashed gray;
 }
 
+/* ---------- TOGGLE BUTTONS ---------- */
 .toggle-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.8rem;
   margin-bottom: 1rem;
+  border: 1px solid purple;
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: #eee;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+.icon-button img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.icon-button:hover {
+  background-color: #ddd;
+}
+
+.icon-button.active {
+  background-color: #ccc;
+  border: 2px solid #444;
+}
+
+/* ---------- HEIGHT/WEIGHT ---------- */
+.height-weight {
+  margin-bottom: 1rem;
+  border: 1px solid orange;
+  text-align: center;
 }
 
 .description {
   font-style: italic;
   text-align: center;
+  margin-top: auto;
+  border: 1px dotted black;
+  padding: 0.5rem;
 }
 
+/* ---------- RIGHT SIDE ---------- */
 .modal-right {
   flex: 1;
   padding: 1rem;
@@ -80,6 +129,7 @@
   justify-content: center;
   margin-bottom: 1rem;
   border: 1px solid orange;
+  padding: 0.5rem;
 }
 
 .info-cards p {
@@ -96,12 +146,23 @@
 .evolution-list {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .evolution-item {
   text-align: center;
   cursor: pointer;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s ease;
+}
+
+.evolution-item:hover {
+  transform: scale(1.05);
 }
 
 .evolution-item img {
@@ -112,10 +173,84 @@
 .advantages {
   margin-top: 1rem;
   border: 1px dashed darkred;
+  padding: 0.5rem;
 }
 
 .type-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+}
+
+
+/* Outer modal (centered box) */
+.modal-content {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  max-width: 900px;
+  height: 600px; /* Reduce this from original height */
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Left side: image + toggles + basic info */
+.left-panel {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 300px;
+}
+
+/* Right side: make scrollable */
+.right-panel {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;  /* Enable vertical scrolling */
+  max-height: 100%;  /* Important: matches modal height */
+  border-left: 1px solid #ddd;
+}
+
+/* Optional: Smooth scrolling */
+.right-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.right-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+
+.pokemon-modal {
+  background-color: var(--modal-bg);
+  color: var(--modal-text);
+  border: 1px solid var(--modal-border);
+}
+
+/* Optional header section */
+.pokemon-modal .modal-header {
+  background-color: var(--modal-header-bg);
+}
+
+
+/* Light mode */
+.pokemon-modal.light {
+  --modal-bg: #ffffff;
+  --modal-text: #000000;
+}
+
+/* Dark mode */
+.pokemon-modal.dark {
+  --modal-bg: #1e1e1e;
+  --modal-text: #f0f0f0;
+}
+
+.pokemon-modal, .modal-content {
+  background-color: var(--modal-bg);
+  color: var(--modal-text);
 }

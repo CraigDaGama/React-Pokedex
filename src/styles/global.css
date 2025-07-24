@@ -10,6 +10,23 @@
   --card-text: #f0f0f0;
 }
 
+/* Default (light) modal theme */
+.pokemon-modal.light {
+  --modal-bg: #ffffff;
+  --modal-text: #000000;
+  --modal-border: #cccccc;
+  --modal-header-bg: #f5f5f5;
+}
+
+/* Dark mode */
+.pokemon-modal.dark {
+  --modal-bg: #1e1e1e;
+  --modal-text: #f0f0f0;
+  --modal-border: #444444;
+  --modal-header-bg: #2a2a2a;
+}
+
+
 
 /* Pokemon type pill style */
 .pokemon-types {
