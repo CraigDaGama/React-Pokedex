@@ -1,15 +1,71 @@
+/* Responsive Grid: Auto-fill columns with min-width */
 .card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: left;
-  padding: 2rem 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 2rem 5%;
+  justify-content: center;
 }
 
+.card-grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
+.loading-indicator,
+.no-results,
+.error-message {
+  text-align: center;
+  margin: 2rem;
+  font-size: 1.2rem;
+  color: var(--text);
+  opacity: 0.8;
+}
 
+.load-more-btn {
+  /* Simple, sleek button */
+  display: block;
+  margin: 2rem auto 4rem auto;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 24px;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  background-color: var(--card-bg, #fff);
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Specific Dark Mode overrides if needed, 
+   but currently relies on vars. 
+   Let's ensure it has a border or distinct look. */
+body.dark .load-more-btn {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure app container takes vars */
 .app-container {
   background-color: var(--bg);
   min-height: 100vh;
   color: var(--text);
+}
+
+
+/* Media Queries */
+@media (max-width: 600px) {
+  .card-grid {
+    padding: 1rem;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
 }

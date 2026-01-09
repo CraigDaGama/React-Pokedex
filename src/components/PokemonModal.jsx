@@ -1,4 +1,3 @@
-// PokemonModal.jsx
 import React, { useEffect, useState } from "react";
 import "../styles/pokemonmodal.css";
 import {
@@ -9,42 +8,33 @@ import {
   PolarRadiusAxis,
 } from "recharts";
 import { useTheme } from "../context/ThemeContext";
+import { TYPE_COLORS } from "../utils/constants";
+import { fetchPokemonDetails } from "../services/pokeapi";
+import { FaArrowRight, FaVolumeUp } from "react-icons/fa";
 
 function PokemonModal({ pokemon, onClose, onPokemonChange }) {
-  const { darkMode } = useTheme(); // use dark mode
-  
+  const { darkMode } = useTheme();
+
   const [details, setDetails] = useState(null);
   const [species, setSpecies] = useState(null);
   const [evolution, setEvolution] = useState([]);
   const [typeAdvantages, setTypeAdvantages] = useState({ strong: [], weak: [] });
 
-  const [isShiny, setIsShiny] = useState(false);
-  const [isMega, setIsMega] = useState(false);
-  const [isFemale, setIsFemale] = useState(false);
-
-  const [hasShiny, setHasShiny] = useState(false);
-  const [hasMega, setHasMega] = useState(false);
-  const [hasFemale, setHasFemale] = useState(false);
+  // Removed Shiny state/toggles as per request
 
   const formattedId = pokemon.id.toString().padStart(3, "0");
 
-  const checkImageExists = (path) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.src = path;
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-    });
+  const getSpriteUrl = (id) => {
+    // Reverted to Official Artwork as requested
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
   };
 
-  const getSpritePath = () => {
-    const base = `/sprites/${formattedId}`;
-    if (isMega && isShiny && hasMega) return `${base}-mega-shiny.gif`;
-    if (isMega && hasMega) return `${base}-mega.gif`;
-    if (isShiny && hasShiny && isFemale && hasFemale) return `${base}-female-shiny.gif`;
-    if (isShiny && hasShiny) return `${base}-shiny.gif`;
-    if (isFemale && hasFemale) return `${base}-female.gif`;
-    return `${base}.gif`;
+  const playCry = () => {
+    if (details?.cries?.latest) {
+      const audio = new Audio(details.cries.latest);
+      audio.volume = 0.5;
+      audio.play().catch(e => console.error("Audio play failed", e));
+    }
   };
 
   useEffect(() => {
@@ -61,8 +51,11 @@ function PokemonModal({ pokemon, onClose, onPokemonChange }) {
         const evoRes = await fetch(speciesRes.evolution_chain.url).then((res) => res.json());
         const evoList = [];
         let chain = evoRes.chain;
+
         while (chain) {
-          evoList.push(chain.species.name);
+          const urlParts = chain.species.url.split("/");
+          const id = urlParts[urlParts.length - 2];
+          evoList.push({ name: chain.species.name, id });
           chain = chain.evolves_to[0];
         }
         setEvolution(evoList);
@@ -77,18 +70,6 @@ function PokemonModal({ pokemon, onClose, onPokemonChange }) {
         }
         setTypeAdvantages({ strong: [...strong], weak: [...weak] });
 
-        // Sprite availability
-        const base = `/sprites/${formattedId}`;
-        const shiny = await checkImageExists(`${base}-shiny.gif`);
-        const mega = await checkImageExists(`${base}-mega.gif`) || await checkImageExists(`${base}-mega-shiny.gif`);
-        const female = await checkImageExists(`${base}-female.gif`);
-        setHasShiny(shiny);
-        setHasMega(mega);
-        setHasFemale(female);
-
-        setIsShiny(false);
-        setIsMega(false);
-        setIsFemale(false);
       } catch (err) {
         console.error("Error fetching modal data:", err);
       }
@@ -109,103 +90,128 @@ function PokemonModal({ pokemon, onClose, onPokemonChange }) {
 
   return (
     <div className={`pokemon-modal ${darkMode ? "dark" : "light"}`}>
-      {/* Modal content here */}
-    
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {/* Left Side */}
-        <div className="modal-left">
-          <div className="modal-header">
-            <h2 className="modal-id">#{formattedId}</h2>
-            <h2>{pokemon.name}</h2>
-            <div className="type-pills">
-              {pokemon.types.map((type) => (
-                <span key={type} className={`type-badge type-${type}`}>{type}</span>
-              ))}
+      <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          {/* Left Side */}
+          <div className="modal-left">
+            <div className="modal-header">
+              <h2 className="modal-id">#{formattedId}</h2>
+              <h2>{pokemon.name}</h2>
+              <div className="type-pills">
+                {pokemon.types.map((type) => (
+                  <span
+                    key={type}
+                    className="type-badge"
+                    style={{ backgroundColor: TYPE_COLORS[type] || '#777' }}
+                  >
+                    {type}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="sprite-wrapper">
-            <img src={getSpritePath()} alt={pokemon.name} className="modal-sprite" />
-          </div>
-
-          <div className="toggle-buttons">
-            {hasShiny && (
-              <button className="icon-button" onClick={() => setIsShiny(!isShiny)} title="Toggle Shiny">
-                <img src="/logo/shiny.png" alt="Shiny" />
-              </button>
-            )}
-            {hasMega && (
-              <button className="icon-button" onClick={() => setIsMega(!isMega)} title="Toggle Mega">
-                <img src="/logo/mega.png" alt="Mega" />
-              </button>
-            )}
-            {hasFemale && (
-              <button className="icon-button" onClick={() => setIsFemale(!isFemale)} title="Toggle Female">
-                <img src="/logo/gender.png" alt="Female" />
-              </button>
-            )}
-          </div>
-          
-          <p className="description">{description}</p>
-
-          <div className="info-cards">
-            <p><strong>Height:</strong> {details.height / 10} m</p>
-            <p><strong>Weight:</strong> {details.weight / 10} kg</p>
-            <p><strong>Base XP:</strong> {details.base_experience}</p>
-          </div>
-
-        </div>
-
-        {/* Right Side */}
-        <div className="modal-right">
-          <div className="radar-chart-container">
-            <RadarChart outerRadius={80} width={300} height={250} data={stats}>
-              <PolarGrid />
-              <PolarAngleAxis dataKey="stat" />
-              <PolarRadiusAxis angle={30} domain={[0, 150]} />
-              <Radar name="Stats" dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-            </RadarChart>
-          </div>
-
-          <div className="evolution-chain">
-            <h4>Evolution Chain</h4>
-            <div className="evolution-list">
-              {evolution.map((name) => (
-                <div key={name} className="evolution-item">
-                  <img
-                    src={`/sprites/${name}.gif`}
-                    alt={name}
-                    onClick={async () => {
-                      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-                      const newData = await res.json();
-                      onPokemonChange(newData);
-                    }}
-                  />
-                  <p>{name}</p>
-                </div>
-              ))}
+            <div className="sprite-wrapper">
+              <img
+                src={getSpriteUrl(pokemon.id)}
+                alt={pokemon.name}
+                className="modal-sprite"
+              />
             </div>
+
+            {/* Replaced Shiny Toggle with Audio Button to fill space */}
+            <div className="modal-actions">
+              <button className="cry-button" onClick={playCry} title="Play Cry">
+                <FaVolumeUp /> Play Cry
+              </button>
+            </div>
+
+            <p className="description">{description}</p>
+
+            <div className="info-cards">
+              <p><strong>Height:</strong> {details.height / 10} m</p>
+              <p><strong>Weight:</strong> {details.weight / 10} kg</p>
+              <p><strong>XP:</strong> {details.base_experience}</p>
+            </div>
+
+            <div className="abilities-section-card">
+              <h3>Abilities</h3>
+              <div className="info-cards abilities-inner">
+                {details.abilities.map((ability) => (
+                  <p key={ability.ability.name} className={ability.is_hidden ? "hidden-ability-text" : ""}>
+                    <strong>{ability.is_hidden ? "Hidden" : "Standard"}</strong>
+                    {ability.ability.name.replace("-", " ")}
+                  </p>
+                ))}
+              </div>
+            </div>
+
           </div>
 
-          <div className="advantages">
-            <h4>Strong Against</h4>
-            <div className="type-list">
-              {typeAdvantages.strong.map((type) => (
-                <span key={type} className={`type-badge type-${type}`}>{type}</span>
-              ))}
+          {/* Right Side */}
+          <div className="modal-right">
+            <div className="radar-chart-container">
+              <RadarChart outerRadius={80} width={300} height={250} data={stats}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="stat" />
+                <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                <Radar name="Stats" dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+              </RadarChart>
             </div>
-            <h4>Weak Against</h4>
-            <div className="type-list">
-              {typeAdvantages.weak.map((type) => (
-                <span key={type} className={`type-badge type-${type}`}>{type}</span>
-              ))}
+
+            <div className="evolution-chain">
+              <h4>Evolution Chain</h4>
+              <div className="evolution-list">
+                {evolution.map((evo, index) => (
+                  <React.Fragment key={evo.name}>
+                    <div className="evolution-item">
+                      <img
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evo.id}.png`}
+                        alt={evo.name}
+                        onClick={async () => {
+                          const newData = await fetchPokemonDetails(evo.name);
+                          if (newData) onPokemonChange(newData);
+                        }}
+                      />
+                      <p>{evo.name}</p>
+                    </div>
+                    {index < evolution.length - 1 && (
+                      <FaArrowRight className="evolution-arrow" />
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+
+            <div className="advantages">
+              <h4>Strong Against</h4>
+              <div className="type-list">
+                {typeAdvantages.strong.map((type) => (
+                  <span
+                    key={type}
+                    className="type-badge"
+                    style={{ backgroundColor: TYPE_COLORS[type] || '#777' }}
+                  >
+                    {type}
+                  </span>
+                ))}
+              </div>
+              <h4>Weak Against</h4>
+              <div className="type-list">
+                {typeAdvantages.weak.map((type) => (
+                  <span
+                    key={type}
+                    className="type-badge"
+                    style={{ backgroundColor: TYPE_COLORS[type] || '#777' }}
+                  >
+                    {type}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   );
 }
 

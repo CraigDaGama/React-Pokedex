@@ -1,256 +1,459 @@
+/* Variables for easy theming */
+:root {
+  --modal-overlay-bg: rgba(0, 0, 0, 0.6);
+  --modal-backdrop-blur: 8px;
+  --modal-bg-light: #FDFBF7;
+  /* Cream/Off-white */
+  --modal-text-light: #1a1a1a;
+  --modal-bg-dark: #1e1e1e;
+  --modal-text-dark: #f0f0f0;
+  --modal-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  --card-border-radius: 16px;
+  --accent-color: #646cff;
+}
+
+/* Base Modal Container */
+/* Base Modal Container */
+/* .pokemon-modal uses shared vars */
+
+/* Overlay with Glassmorphism */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--modal-overlay-bg);
+  backdrop-filter: blur(var(--modal-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--modal-backdrop-blur));
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Content Box */
 .modal-content {
-  width: 1000px;
-  height: 80vh;
-  background-color: white;
-  color: black;
-  border-radius: 12px;
   display: flex;
-  overflow: hidden;
-  border: 3px solid red; /* Outer debug border */
+  flex-direction: row;
+  width: auto;
+  /* Fit content */
+  max-width: 900px;
+  height: auto;
+  /* Remove fixed height to avoid scrollbars */
+  max-height: 90vh;
+  /* Safety cap */
+  background-color: var(--modal-bg);
+  color: var(--modal-text);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--modal-shadow);
+  overflow: visible;
+  /* No internal scroll */
+  position: relative;
+  animation: scaleIn 0.3s ease-out forwards;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* ---------- LEFT SIDE ---------- */
 .modal-left {
-  flex: 1;
-  padding: 1rem;
+  flex: 0 0 350px;
+  /* Fixed width for left side */
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-right: 2px solid black;
-  border: 2px dashed green;
+  background: rgba(0, 0, 0, 0.02);
+  /* Subtle contrast */
+  border-right: 1px solid rgba(128, 128, 128, 0.1);
 }
 
+/* Header */
 .modal-header {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 0.5rem;
-  border: 1px solid blue;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .modal-id {
-  font-weight: bold;
+  font-size: 1rem;
+  color: #888;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
+.modal-header h2 {
+  font-size: 1.8rem;
+  margin: 0;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+/* Types */
 .type-pills {
   display: flex;
   gap: 0.5rem;
+  margin-top: 0.3rem;
 }
 
 .type-badge {
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
   color: white;
-  font-size: 0.9rem;
-  text-transform: capitalize;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  /* Fallback color, normally set by dynamic class */
+  background-color: #777;
 }
 
-/* ---------- SPRITE ---------- */
+/* Sprite */
+.sprite-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
 .modal-sprite {
-  width: 150px;
-  height: auto;
-  margin: 1rem 0;
-  border: 1px dashed gray;
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* ---------- TOGGLE BUTTONS ---------- */
+.modal-sprite:hover {
+  transform: scale(1.1);
+}
+
+/* Toggle Buttons */
 .toggle-buttons {
   display: flex;
   gap: 0.8rem;
   margin-bottom: 1rem;
-  border: 1px solid purple;
 }
 
 .icon-button {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: none;
   border-radius: 50%;
-  background-color: #eee;
-  padding: 5px;
+  background-color: rgba(128, 128, 128, 0.1);
+  padding: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .icon-button img {
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  opacity: 0.7;
 }
 
 .icon-button:hover {
-  background-color: #ddd;
+  background-color: rgba(128, 128, 128, 0.2);
+  transform: translateY(-2px);
 }
 
-.icon-button.active {
-  background-color: #ccc;
-  border: 2px solid #444;
-}
-
-/* ---------- HEIGHT/WEIGHT ---------- */
-.height-weight {
-  margin-bottom: 1rem;
-  border: 1px solid orange;
+.abilities-section-card {
+  width: 100%;
+  margin-top: 0.8rem;
   text-align: center;
+}
+
+.abilities-section-card h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  margin-bottom: 0.4rem;
+}
+
+.abilities-inner {
+  /* Reuse info-cards style but ensure wrapping if needed */
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hidden-ability-text {
+  color: #8877cc;
+}
+
+.cry-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--text);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cry-button:hover {
+  transform: scale(1.05);
+  background-color: var(--text);
+  color: var(--bg);
+}
+
+.cry-button svg {
+  font-size: 1.1rem;
 }
 
 .description {
   font-style: italic;
   text-align: center;
+  line-height: 1.4;
+  font-size: 0.95rem;
   margin-top: auto;
-  border: 1px dotted black;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.info-cards {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.8rem;
+  background: rgba(128, 128, 128, 0.05);
+  padding: 0.8rem;
+  border-radius: 12px;
+}
+
+.info-cards p {
+  margin: 0;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.info-cards strong {
+  color: #888;
+  font-size: 0.7rem;
+  text-transform: uppercase;
 }
 
 /* ---------- RIGHT SIDE ---------- */
 .modal-right {
   flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  border: 2px dashed blue;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Space out content nicely */
+  overflow: visible;
+  /* No scroll */
+}
+
+/* Remove default scrollbar style for cleaner look (optional) */
+.modal-right::-webkit-scrollbar {
+  display: none;
 }
 
 .radar-chart-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
-  border: 1px solid orange;
-  padding: 0.5rem;
+  padding: 1rem;
+  background: rgba(128, 128, 128, 0.03);
+  border-radius: 12px;
 }
 
-.info-cards p {
-  margin: 0.4rem 0;
-  border: 1px solid gray;
-  padding: 0.3rem;
-}
-
-.evolution-chain {
-  margin: 1rem 0;
-  border: 1px dashed purple;
+/* Evolution */
+.evolution-chain h4,
+.advantages h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
 }
 
 .evolution-list {
   display: flex;
-  gap: 1rem;
-  flex-wrap: nowrap;
+  gap: 1.5rem;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .evolution-item {
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  transition: transform 0.2s ease;
-}
-
-.evolution-item:hover {
-  transform: scale(1.05);
-}
-
-.evolution-item img {
-  width: 80px;
-  height: 80px;
-}
-
-.advantages {
-  margin-top: 1rem;
-  border: 1px dashed darkred;
-  padding: 0.5rem;
-}
-
-.type-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-
-/* Outer modal (centered box) */
-.modal-content {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 900px;
-  height: 600px; /* Reduce this from original height */
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Left side: image + toggles + basic info */
-.left-panel {
-  flex: 1;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-width: 300px;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background-color: rgba(128, 128, 128, 0.05);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Right side: make scrollable */
-.right-panel {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;  /* Enable vertical scrolling */
-  max-height: 100%;  /* Important: matches modal height */
-  border-left: 1px solid #ddd;
+.evolution-item:hover {
+  transform: translateY(-5px);
+  background-color: rgba(128, 128, 128, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Optional: Smooth scrolling */
-.right-panel::-webkit-scrollbar {
-  width: 8px;
-}
-.right-panel::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.2);
-  border-radius: 4px;
+.evolution-item img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 0.5rem;
 }
 
-
-.pokemon-modal {
-  background-color: var(--modal-bg);
-  color: var(--modal-text);
-  border: 1px solid var(--modal-border);
+.evolution-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  font-weight: 500;
 }
 
-/* Optional header section */
-.pokemon-modal .modal-header {
-  background-color: var(--modal-header-bg);
+/* Advantages */
+.type-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-
-/* Light mode */
-.pokemon-modal.light {
-  --modal-bg: #ffffff;
-  --modal-text: #000000;
+/* Dark Mode Overrides */
+.pokemon-modal.dark .modal-content {
+  background-color: var(--modal-bg-dark);
+  color: var(--modal-text-dark);
 }
 
-/* Dark mode */
-.pokemon-modal.dark {
-  --modal-bg: #1e1e1e;
-  --modal-text: #f0f0f0;
+.pokemon-modal.light .modal-content {
+  background-color: var(--modal-bg-light);
+  color: var(--modal-text-light);
 }
 
-.pokemon-modal, .modal-content {
-  background-color: var(--modal-bg);
-  color: var(--modal-text);
+/* Specific Type Colors (Classic Pokemon Colors) */
+.type-normal {
+  background-color: #A8A77A;
+}
+
+.type-fire {
+  background-color: #EE8130;
+}
+
+.type-water {
+  background-color: #6390F0;
+}
+
+.type-electric {
+  background-color: #F7D02C;
+}
+
+.type-grass {
+  background-color: #7AC74C;
+}
+
+.type-ice {
+  background-color: #96D9D6;
+}
+
+.type-fighting {
+  background-color: #C22E28;
+}
+
+.type-poison {
+  background-color: #A33EA1;
+}
+
+.type-ground {
+  background-color: #E2BF65;
+}
+
+.type-flying {
+  background-color: #A98FF3;
+}
+
+.type-psychic {
+  background-color: #F95587;
+}
+
+.type-bug {
+  background-color: #A6B91A;
+}
+
+.type-rock {
+  background-color: #B6A136;
+}
+
+.type-ghost {
+  background-color: #735797;
+}
+
+.type-dragon {
+  background-color: #6F35FC;
+}
+
+.type-dark {
+  background-color: #705746;
+}
+
+.type-steel {
+  background-color: #B7B7CE;
+}
+
+.type-fairy {
+  background-color: #D685AD;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+    height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-left {
+    border-right: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+    padding: 1.5rem;
+  }
+
+  .modal-right {
+    padding: 1.5rem;
+    overflow-y: visible;
+    /* Scroll happens on modal-content now */
+  }
 }
