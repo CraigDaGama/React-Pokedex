@@ -20,12 +20,10 @@ function PokemonModal({ pokemon, onClose, onPokemonChange }) {
   const [evolution, setEvolution] = useState([]);
   const [typeAdvantages, setTypeAdvantages] = useState({ strong: [], weak: [] });
 
-  // Removed Shiny state/toggles as per request
 
   const formattedId = pokemon.id.toString().padStart(3, "0");
 
   const getSpriteUrl = (id) => {
-    // Reverted to Official Artwork as requested
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
   };
 
@@ -118,7 +116,7 @@ function PokemonModal({ pokemon, onClose, onPokemonChange }) {
               />
             </div>
 
-            {/* Replaced Shiny Toggle with Audio Button to fill space */}
+
             <div className="modal-actions">
               <button className="cry-button" onClick={playCry} title="Play Cry">
                 <FaVolumeUp /> Play Cry

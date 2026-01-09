@@ -22,12 +22,8 @@ function PokemonCard({ pokemon, onClick }) {
     return { backgroundColor: "#777" };
   }, [pokemon.types]);
 
-  // Use PokeAPI CDN for official artwork or animated sprites (optional: make this a helper)
-  // We'll stick to local GIFs request for now OR switch to CDN as requested.
-  // Plan said: Switch to CDN.
-  // Animated (Gen 5 BW): https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/{id}.gif
-  // Fallback to static if ID > 649 (Gen 5 limit for these specific GIFs) or check availability? 
-  // For safety/reliability, let's use the official artwork for static cards, or High Res PNGs.
+  // Using PokeAPI CDN for official artwork or animated sprites
+
 
   const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 

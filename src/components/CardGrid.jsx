@@ -21,9 +21,6 @@ function CardGrid({ searchTerm, filters }) {
     setSelectedPokemon(null);
   };
 
-  // Infinite Scroll Trigger (Simple implementation: Load More Button or Scroll Listener)
-  // For now, let's add a "Load More" button at the bottom unless filtering prevents it.
-
   return (
     <div className="card-grid-container">
       {error && <p className="error-message">Error loading Pokemon: {error.message}</p>}
@@ -42,7 +39,6 @@ function CardGrid({ searchTerm, filters }) {
         </button>
       )}
 
-      {/* Show "No Results" if not loading and list is empty */}
       {!loading && pokemonList.length === 0 && (
         <p className="no-results">No Pokémon found.</p>
       )}
