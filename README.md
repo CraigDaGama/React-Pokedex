@@ -1,12 +1,67 @@
-# React + Vite
+# React Pokedex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive Pokedex application built with **React** and **Vite**. This project features a stunning glassmorphism UI, real-time search, and detailed Pokemon statistics using the **PokeAPI**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Modern Aesthetic**: beautifully designed with Glassmorphism, smooth animations, and a responsive grid layout.
+- **Real-Time Search**: Instant filtering by name or ID without page reloads.
+- **Advanced Filtering**: Filter Pokemon by **Type** (Multi-select) and toggle **Mega Evolutions**.
+- **Dark & Light Mode**: Seamless theme switching with persistent user preference.
+- **Interactive Stats**: 
+  - Radar Chart for base stats.
+  - Interactive **"Play Cry"** button to hear Pokemon sounds.
+  - Evolution Chains with visual arrows.
+  - Abilities card with "Hidden" ability tags.
+- **Fully Responsive**: Optimized for desktop, tablet, and mobile devices.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React** (Hooks, Context API)
+- **Vite** (Fast tooling)
+- **PokeAPI** (Data source)
+- **Recharts** (Radar charts)
+- **CSS3** (Variables, Flexbox, Grid)
+
+## Getting Started
+
+### Prerequisites
+- Node.js installed
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/CraigDaGama/React-Pokedex.git
+   ```
+2. Navigate to the project folder:
+   ```bash
+   cd React-Pokedex
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Screenshots
+
+
+<div align="center">
+  <img src="./screenshots/home.png" alt="Home Screen" width="100%" style="border-radius: 8px; margin-top: 20px;" />
+  <p><strong>Home Screen</strong></p>
+
+  <img src="./screenshots/modal.png" alt="Pokemon Modal" width="100%" style="border-radius: 8px; margin-top: 20px;" />
+  <p><strong>Pokemon Details</strong></p>
+
+  <img src="./screenshots/mobile.png" alt="Mobile View" width="375px" style="border-radius: 8px; margin-top: 20px;" />
+  <p><strong>Mobile View</strong></p>
+</div>
+
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
